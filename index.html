@@ -243,7 +243,7 @@ section{position:relative}
 .eventos-form .field span,.eventos-form legend{display:block;font-family:var(--ui);font-weight:300;
   font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-soft);
   margin-bottom:.4rem;padding:0}
-.eventos-form input[type=email],.eventos-form input[type=tel],.eventos-form textarea{
+.eventos-form input[type=text],.eventos-form input[type=email],.eventos-form input[type=tel],.eventos-form textarea{
   width:100%;background:rgba(243,236,214,.05);border:1px solid var(--rule);border-radius:3px;
   color:var(--cream);font-family:var(--serif);font-size:1.05rem;padding:.65rem .8rem}
 .eventos-form textarea{resize:vertical}
@@ -458,6 +458,10 @@ footer .f-meta{font-family:var(--ui);font-weight:300;font-size:.72rem;letter-spa
     <form name="eventos" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="eventos-form" id="eventos-form">
       <input type="hidden" name="form-name" value="eventos">
       <p class="hp-field"><label>No rellenar: <input name="bot-field"></label></p>
+      <label class="field">
+        <span>Nombre</span>
+        <input type="text" name="nombre" required>
+      </label>
       <label class="field">
         <span>Email</span>
         <input type="email" name="email" required>
