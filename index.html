@@ -214,6 +214,44 @@ section{position:relative}
 .visita__card .visita__card-soon{font-family:var(--ui);font-weight:300;font-size:.72rem;
   letter-spacing:.36em;text-transform:uppercase;color:var(--cream-dim);margin-top:1rem}
 
+/* ---------- eventos ---------- */
+.band--eventos{background:var(--green-950)}
+.eventos{max-width:640px;margin:0 auto;text-align:center;position:relative;z-index:1}
+.eventos__h{font-family:var(--display);font-weight:500;font-size:clamp(2rem,4.6vw,3rem);
+  line-height:1.1;margin:.2rem 0 1.2rem;color:var(--cream)}
+.eventos__h em{font-style:italic;color:var(--gold-soft)}
+.eventos__p{font-size:1.14rem;color:var(--cream-soft);margin:0 0 1.8rem}
+.eventos__cta{font-family:var(--ui);font-weight:400;font-size:.78rem;letter-spacing:.28em;
+  text-transform:uppercase;color:var(--green-900);background:var(--gold-soft);border:none;
+  border-radius:2px;padding:.95rem 2.1rem;cursor:pointer;
+  transition:background .3s var(--ease),transform .3s var(--ease)}
+.eventos__cta:hover{background:var(--gold);transform:translateY(-1px)}
+
+/* ---------- modal eventos ---------- */
+.modal{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;padding:24px}
+.modal.is-open{display:flex}
+.modal__overlay{position:absolute;inset:0;background:rgba(20,24,8,.72);backdrop-filter:blur(3px)}
+.modal__dialog{position:relative;z-index:1;width:100%;max-width:480px;max-height:88vh;overflow-y:auto;
+  background:var(--green-850);border:1px solid var(--rule);border-radius:6px;
+  padding:clamp(30px,5vw,46px);text-align:left}
+.modal__close{position:absolute;top:14px;right:16px;background:none;border:none;color:var(--cream-soft);
+  font-size:1.6rem;line-height:1;cursor:pointer;padding:4px}
+.modal__close:hover{color:var(--cream)}
+.modal__title{font-family:var(--display);font-weight:500;font-size:1.7rem;color:var(--cream);margin:.2rem 0 1.3rem}
+.hp-field{position:absolute;left:-9999px;top:-9999px}
+.eventos-form .field{display:block;margin-bottom:1.1rem}
+.eventos-form .field span,.eventos-form legend{display:block;font-family:var(--ui);font-weight:300;
+  font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-soft);
+  margin-bottom:.4rem;padding:0}
+.eventos-form input[type=email],.eventos-form input[type=tel],.eventos-form textarea{
+  width:100%;background:rgba(243,236,214,.05);border:1px solid var(--rule);border-radius:3px;
+  color:var(--cream);font-family:var(--serif);font-size:1.05rem;padding:.65rem .8rem}
+.eventos-form textarea{resize:vertical}
+.field--radio{border:none;padding:0;margin:0 0 1.1rem}
+.field--radio label{display:flex;align-items:center;gap:.5rem;font-family:var(--serif);font-size:1rem;
+  color:var(--cream-soft);margin-bottom:.5rem;text-transform:none;letter-spacing:normal}
+.eventos-form__status{font-family:var(--ui);font-size:.85rem;color:var(--gold-soft);margin-top:1rem;min-height:1.2em}
+
 /* ---------- footer ---------- */
 footer{background:var(--green-950);padding:54px 24px 38px;text-align:center;border-top:1px solid var(--rule-soft)}
 footer .clover{width:30px;height:30px;color:var(--gold-soft);margin:0 auto 16px}
@@ -259,6 +297,7 @@ footer .f-meta{font-family:var(--ui);font-weight:300;font-size:.72rem;letter-spa
     <a href="#ritual" class="hide-sm">El ritual</a>
     <a href="#carta">La carta</a>
     <a href="#visita" class="hide-sm">Visítanos</a>
+    <a href="#eventos">Eventos</a>
   </nav>
 </header>
 
@@ -397,6 +436,51 @@ footer .f-meta{font-family:var(--ui);font-weight:300;font-size:.72rem;letter-spa
   </div>
 </section>
 
+<!-- EVENTOS -->
+<section class="band band--eventos" id="eventos">
+  <div class="wrap">
+    <div class="eventos reveal">
+      <p class="eyebrow">Eventos</p>
+      <h2 class="eventos__h">Celebra <em>tu evento</em> con nosotros</h2>
+      <p class="eventos__p">Ya sea una fiesta en el local o llevar nuestros granizados a tu propio evento, cuéntanos qué necesitas y te ayudamos a organizarlo.</p>
+      <button type="button" class="eventos__cta" id="eventos-open">Solicitar información</button>
+    </div>
+  </div>
+</section>
+
+<!-- MODAL EVENTOS -->
+<div class="modal" id="eventos-modal" aria-hidden="true">
+  <div class="modal__overlay" data-close></div>
+  <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="eventos-modal-title">
+    <button type="button" class="modal__close" data-close aria-label="Cerrar">&times;</button>
+    <p class="eyebrow">Eventos</p>
+    <h3 id="eventos-modal-title" class="modal__title">Cuéntanos tu evento</h3>
+    <form name="eventos" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="eventos-form" id="eventos-form">
+      <input type="hidden" name="form-name" value="eventos">
+      <p class="hp-field"><label>No rellenar: <input name="bot-field"></label></p>
+      <label class="field">
+        <span>Email</span>
+        <input type="email" name="email" required>
+      </label>
+      <label class="field">
+        <span>Teléfono</span>
+        <input type="tel" name="telefono" required>
+      </label>
+      <fieldset class="field field--radio">
+        <legend>Tipo de evento</legend>
+        <label><input type="radio" name="tipo" value="Evento en el local" required> Evento en el local</label>
+        <label><input type="radio" name="tipo" value="Granizados para mi evento"> Granizados para mi evento</label>
+      </fieldset>
+      <label class="field">
+        <span>Cuéntanos más (opcional)</span>
+        <textarea name="mensaje" rows="3"></textarea>
+      </label>
+      <button type="submit" class="eventos__cta">Enviar solicitud</button>
+      <p class="eventos-form__status" id="eventos-form-status" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</div>
+
 <footer>
   <svg class="clover"><use href="#clover"/></svg>
   <div class="f-name">TRIBUTO BAR</div>
@@ -422,6 +506,44 @@ window.addEventListener("scroll",()=>{
 },{passive:true});
 
 observeReveals();
+
+/* ============ modal eventos ============ */
+(function(){
+  const openBtn = document.getElementById("eventos-open");
+  const modal = document.getElementById("eventos-modal");
+  if(!openBtn || !modal) return;
+  const form = document.getElementById("eventos-form");
+  const status = document.getElementById("eventos-form-status");
+
+  function open(){
+    modal.classList.add("is-open");
+    modal.setAttribute("aria-hidden","false");
+    document.body.style.overflow="hidden";
+  }
+  function close(){
+    modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden","true");
+    document.body.style.overflow="";
+  }
+
+  openBtn.addEventListener("click", open);
+  modal.querySelectorAll("[data-close]").forEach(el=>el.addEventListener("click", close));
+  document.addEventListener("keydown", e=>{ if(e.key==="Escape" && modal.classList.contains("is-open")) close(); });
+
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    const data = new URLSearchParams(new FormData(form)).toString();
+    fetch("/", { method:"POST", headers:{"Content-Type":"application/x-www-form-urlencoded"}, body:data })
+      .then(()=>{
+        status.textContent = "¡Gracias! Te contactaremos pronto.";
+        form.reset();
+        setTimeout(close, 2200);
+      })
+      .catch(()=>{
+        status.textContent = "Hubo un error al enviar. Prueba de nuevo o escríbenos por Instagram.";
+      });
+  });
+})();
 </script>
 </body>
 </html>
