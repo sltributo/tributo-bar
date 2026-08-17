@@ -243,9 +243,10 @@ section{position:relative}
 .eventos-form .field span,.eventos-form legend{display:block;font-family:var(--ui);font-weight:300;
   font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-soft);
   margin-bottom:.4rem;padding:0}
-.eventos-form input[type=text],.eventos-form input[type=email],.eventos-form input[type=tel],.eventos-form textarea{
+.eventos-form input[type=text],.eventos-form input[type=email],.eventos-form input[type=tel],.eventos-form input[type=date],.eventos-form textarea{
   width:100%;background:rgba(243,236,214,.05);border:1px solid var(--rule);border-radius:3px;
   color:var(--cream);font-family:var(--serif);font-size:1.05rem;padding:.65rem .8rem}
+.eventos-form input[type=date]{color-scheme:dark}
 .eventos-form textarea{resize:vertical}
 .field--radio{border:none;padding:0;margin:0 0 1.1rem}
 .field--radio label{display:flex;align-items:center;gap:.5rem;font-family:var(--serif);font-size:1rem;
@@ -476,6 +477,10 @@ footer .f-meta{font-family:var(--ui);font-weight:300;font-size:.72rem;letter-spa
         <label><input type="radio" name="tipo" value="Granizados para mi evento"> Granizados para mi evento</label>
       </fieldset>
       <label class="field">
+        <span>Fecha del evento</span>
+        <input type="date" name="fecha" id="eventos-fecha" required>
+      </label>
+      <label class="field">
         <span>Cuéntanos más (opcional)</span>
         <textarea name="mensaje" rows="3"></textarea>
       </label>
@@ -518,6 +523,8 @@ observeReveals();
   if(!openBtn || !modal) return;
   const form = document.getElementById("eventos-form");
   const status = document.getElementById("eventos-form-status");
+  const fecha = document.getElementById("eventos-fecha");
+  if(fecha) fecha.min = new Date().toISOString().split("T")[0];
 
   function open(){
     modal.classList.add("is-open");
